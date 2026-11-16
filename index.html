@@ -1,0 +1,761 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="theme-color" content="#24150f">
+  <title>Norah's Kitchen | Reservations</title>
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;1,300;1,400&family=Josefin+Sans:wght@300;400&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --cream: #f5e9da;
+      --champagne: #d9bd99;
+      --espresso: #24150f;
+      --brown: #493024;
+    }
+
+    * {
+      box-sizing: border-box;
+    }
+
+    body {
+      margin: 0;
+      min-height: 100vh;
+      min-height: 100dvh;
+      font-family: "josefin sans", sans-serif;
+      color: var(--cream);
+      background:
+        radial-gradient(ellipse at center, rgba(20, 11, 7, .55), rgba(20, 11, 7, .18) 55%, transparent 78%),
+        linear-gradient(rgba(24, 13, 8, .28), rgba(24, 13, 8, .5)),
+        url("./Images/restaurant-bg.png") center / cover fixed;
+    }
+
+    /* ---------- Chic, simple landing page ---------- */
+
+    .page {
+      min-height: 100vh;
+      min-height: 100dvh;
+      display: flex;
+      flex-direction: column;
+    }
+
+    .topbar {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 28px 36px;
+      font-size: 11px;
+      letter-spacing: .35em;
+      text-transform: uppercase;
+    }
+
+    .topbar .wordmark {
+      font-weight: 400;
+    }
+
+    .hero {
+      position: relative;
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+      padding: 40px 24px 60px;
+    }
+
+    /* Solid, soft dark area behind the text, so the font stays clear */
+    .hero::before {
+      content: "";
+      position: absolute;
+      inset: 12% 6%;
+      background: radial-gradient(ellipse at center, rgba(20, 11, 7, .62), rgba(20, 11, 7, .3) 55%, transparent 78%);
+      z-index: 0;
+    }
+
+    .hero > * {
+      position: relative;
+      z-index: 1;
+    }
+
+    .brand-mark {
+      color: var(--champagne);
+      font-size: 22px;
+      line-height: 1;
+      margin-bottom: 22px;
+    }
+
+    .brand-name {
+      font-family: "Cormorant Garamond", serif;
+      font-size: clamp(46px, 7vw, 78px);
+      font-weight: 300;
+      letter-spacing: .14em;
+      text-transform: uppercase;
+      line-height: 1.05;
+      text-shadow: 0 2px 28px rgba(0, 0, 0, .55);
+    }
+
+    .divider {
+      width: 52px;
+      height: 1px;
+      margin: 28px 0 24px;
+      background: rgba(217, 189, 153, .8);
+    }
+
+    .tagline {
+      margin: 0;
+      font-family: "Cormorant Garamond", serif;
+      font-style: italic;
+      font-weight: 300;
+      font-size: clamp(21px, 3vw, 27px);
+      line-height: 1.4;
+      color: rgba(255, 249, 242, .94);
+      text-shadow: 0 2px 20px rgba(0, 0, 0, .55);
+    }
+
+    .details {
+      padding: 0 24px 34px;
+      text-align: center;
+      font-size: 11px;
+      letter-spacing: .28em;
+      text-transform: uppercase;
+      color: rgba(255, 249, 242, .82);
+      line-height: 2;
+    }
+
+    .details span {
+      white-space: nowrap;
+    }
+
+    /* ---------- Reserve a Table button — centred in the middle ---------- */
+
+    .chat-launcher {
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      margin-top: 42px;
+      border: 1px solid rgba(255, 248, 238, .9);
+      border-radius: 50px;
+      padding: 16px 36px;
+      background: linear-gradient(180deg, #fdf6ea 0%, var(--cream) 45%, #e6cfa8 100%);
+      color: var(--espresso);
+      font-family: "josefin sans", sans-serif;
+      font-size: 11px;
+      letter-spacing: .35em;
+      text-transform: uppercase;
+      cursor: pointer;
+      /* 3D depth: bright top edge, deep bottom edge, soft drop shadow */
+      box-shadow:
+        inset 0 1px 0 rgba(255, 255, 255, .9),
+        inset 0 -2px 4px rgba(120, 85, 50, .25),
+        0 5px 0 #b89b6e,
+        0 12px 28px rgba(0, 0, 0, .45);
+      transform: translateY(0);
+      transition: transform .15s ease, box-shadow .15s ease, background .25s;
+    }
+
+    .chat-launcher:hover {
+      background: linear-gradient(180deg, #fffaf0 0%, #f9ecda 45%, #ecd6b0 100%);
+      color: var(--espresso);
+      transform: translateY(-2px);
+      box-shadow:
+        inset 0 1px 0 rgba(255, 255, 255, .9),
+        inset 0 -2px 4px rgba(120, 85, 50, .25),
+        0 7px 0 #b89b6e,
+        0 16px 32px rgba(0, 0, 0, .5);
+    }
+
+    .chat-launcher:active {
+      transform: translateY(3px);
+      box-shadow:
+        inset 0 1px 0 rgba(255, 255, 255, .7),
+        inset 0 -1px 3px rgba(120, 85, 50, .25),
+        0 2px 0 #b89b6e,
+        0 6px 16px rgba(0, 0, 0, .4);
+    }
+
+    .chat-launcher span {
+      color: #8a6a3f;
+      font-size: 14px;
+    }
+
+    .chat-launcher:hover span {
+      color: var(--espresso);
+    }
+
+    /* ---------- Chat pop-up (middle of the page) ---------- */
+
+    .chat-overlay {
+      position: fixed;
+      inset: 0;
+      z-index: 100;
+      display: none;
+      align-items: center;
+      justify-content: center;
+      padding: 20px;
+      background: rgba(15, 8, 5, .55);
+      backdrop-filter: blur(6px);
+      -webkit-backdrop-filter: blur(6px);
+    }
+
+    .chat-overlay.open {
+      display: flex;
+    }
+
+    .chat-panel {
+      position: relative;
+      width: min(92vw, 560px);
+      height: min(580px, 86vh);
+      height: min(580px, 86dvh);
+      display: flex;
+      flex-direction: column;
+      overflow: hidden;
+      border: 1px solid rgba(220, 190, 155, .48);
+      border-radius: 24px;
+      background: rgba(44, 26, 18, .62);
+      backdrop-filter: blur(18px);
+      -webkit-backdrop-filter: blur(18px);
+      box-shadow: 0 25px 80px rgba(0, 0, 0, .28);
+    }
+
+    .panel-heading {
+      padding: 25px 20px 17px;
+      text-align: center;
+      font-family: "Cormorant Garamond", serif;
+      font-size: 17px;
+      font-weight: 400;
+      letter-spacing: .3em;
+      color: var(--champagne);
+      text-transform: uppercase;
+    }
+
+    .panel-heading::before,
+    .panel-heading::after {
+      content: "";
+      display: inline-block;
+      width: 34px;
+      height: 1px;
+      margin: 0 15px 3px;
+      background: rgba(217, 189, 153, .65);
+    }
+
+    .chat-close {
+      position: absolute;
+      top: 12px;
+      right: 12px;
+      width: 36px;
+      height: 36px;
+      border: 1px solid rgba(245, 233, 218, .4);
+      border-radius: 50%;
+      background: transparent;
+      color: var(--cream);
+      font-size: 20px;
+      line-height: 1;
+      cursor: pointer;
+    }
+
+    .chat-close:hover {
+      background: rgba(245, 233, 218, .15);
+    }
+
+    .messages {
+      flex: 1;
+      min-height: 0;
+      overflow-y: auto;
+      padding: 28px 34px;
+      display: flex;
+      flex-direction: column;
+      gap: 22px;
+    }
+
+    .message {
+      display: flex;
+      align-items: flex-start;
+      gap: 13px;
+      max-width: 78%;
+    }
+
+    /* Elegant translucent assistant bubbles */
+    .message.assistant .bubble {
+      display: block;
+      background: rgba(245, 233, 218, 0.18);
+      color: #fff5e9;
+      border: 1px solid rgba(245, 233, 218, 0.28);
+      border-radius: 20px;
+      border-top-left-radius: 5px;
+      padding: 15px 19px;
+      box-shadow:
+        0 8px 24px rgba(0, 0, 0, 0.16),
+        inset 0 1px 0 rgba(255, 255, 255, 0.16);
+      backdrop-filter: blur(16px);
+      -webkit-backdrop-filter: blur(16px);
+    }
+
+    /* Elegant translucent customer bubbles */
+    .message.user .bubble {
+      background: rgba(217, 189, 153, 0.22);
+      color: #fff8ef;
+      border: 1px solid rgba(245, 233, 218, 0.32);
+      border-radius: 20px;
+      border-top-right-radius: 5px;
+      padding: 15px 19px;
+      box-shadow:
+        0 8px 24px rgba(0, 0, 0, 0.18),
+        inset 0 1px 0 rgba(255, 255, 255, 0.18);
+      backdrop-filter: blur(16px);
+      -webkit-backdrop-filter: blur(16px);
+    }
+
+    .message.user {
+      align-self: flex-end;
+      flex-direction: row-reverse;
+    }
+
+    .avatar {
+      flex: 0 0 38px;
+      width: 38px;
+      height: 38px;
+      border-radius: 50%;
+      display: grid;
+      place-items: center;
+      background: var(--cream);
+      color: var(--brown);
+      font-family: "Cormorant Garamond", serif;
+      font-size: 22px;
+    }
+
+    .bubble {
+      padding: 16px 20px;
+      border-radius: 22px;
+      font-family: "Cormorant Garamond", serif;
+      font-weight: 300;
+      font-size: 20px;
+      line-height: 1.35;
+      overflow-wrap: anywhere;
+    }
+
+    .bubble strong {
+      font-weight: 400;
+    }
+
+    .assistant .bubble {
+      background: rgba(247, 231, 211, .96);
+      color: #2d1b13;
+      border-top-left-radius: 5px;
+    }
+
+    .user .bubble {
+      background: rgba(37, 20, 13, .88);
+      color: #fff5e9;
+      border: 1px solid rgba(217, 189, 153, .25);
+      border-top-right-radius: 5px;
+    }
+
+    .message-time {
+      white-space: nowrap;
+      margin-top: 5px;
+      padding: 0 8px;
+      color: rgba(255, 249, 242, .55);
+      font-family: "Cormorant Garamond", serif;
+      font-style: italic;
+      font-size: 15px;
+    }
+
+    .composer-area {
+      padding: 18px 28px 24px;
+    }
+
+    .composer {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      min-height: 66px;
+      padding: 8px 12px 8px 19px;
+      border: 1px solid rgba(232, 207, 176, .72);
+      border-radius: 50px;
+      background: rgba(255, 245, 232, .08);
+    }
+
+    .composer input {
+      flex: 1;
+      min-width: 0;
+      border: 0;
+      outline: 0;
+      background: transparent;
+      color: white;
+      font-family: "Cormorant Garamond", serif;
+      font-size: 19px;
+    }
+
+    .composer input::placeholder {
+      color: rgba(255, 240, 220, .72);
+    }
+
+    .composer input:disabled {
+      opacity: .65;
+    }
+
+    .send-button {
+      width: 46px;
+      height: 46px;
+      flex: 0 0 46px;
+      border: 0;
+      border-radius: 50%;
+      background: var(--cream);
+      color: var(--espresso);
+      font-size: 22px;
+      cursor: pointer;
+    }
+
+    .send-button:hover {
+      background: var(--champagne);
+    }
+
+    .send-button:disabled {
+      opacity: .6;
+      cursor: wait;
+    }
+
+    .typing .bubble {
+      min-width: 58px;
+      letter-spacing: 4px;
+      animation: typingPulse 1.2s ease-in-out infinite;
+    }
+
+    @keyframes typingPulse {
+      0%, 100% {
+        opacity: .45;
+      }
+      50% {
+        opacity: 1;
+      }
+    }
+
+    button:focus-visible,
+    input:focus-visible {
+      outline: 2px solid #C8A77D;
+      outline-offset: 3px;
+    }
+
+    @media (max-width: 700px) {
+      body {
+        background:
+          radial-gradient(ellipse at center, rgba(20, 11, 7, .55), rgba(20, 11, 7, .18) 55%, transparent 78%),
+          linear-gradient(rgba(24, 13, 8, .35), rgba(24, 13, 8, .6)),
+          url("./Images/restaurant-bg.png") center / cover;
+      }
+
+      .topbar {
+        padding: 20px;
+      }
+
+      .hero {
+        padding: 30px 18px 50px;
+      }
+
+      .details {
+        font-size: 10px;
+        letter-spacing: .2em;
+      }
+
+      .chat-launcher {
+        margin-top: 34px;
+        padding: 14px 28px;
+      }
+
+      .chat-overlay {
+        padding: 12px;
+      }
+
+      .chat-panel {
+        width: 100%;
+        height: 86vh;
+        height: 86dvh;
+        border-radius: 22px;
+      }
+
+      .messages {
+        padding: 20px 13px;
+        gap: 17px;
+      }
+
+      .message {
+        max-width: 94%;
+        gap: 8px;
+      }
+
+      .avatar {
+        width: 31px;
+        height: 31px;
+        flex-basis: 31px;
+      }
+
+      .bubble {
+        font-size: 18px;
+        padding: 13px 15px;
+      }
+
+      .composer-area {
+        padding: 12px;
+      }
+
+      .composer {
+        min-height: 58px;
+      }
+    }
+
+    @media (min-width: 701px) and (max-width: 1050px) {
+      .chat-panel {
+        width: min(92vw, 680px);
+        height: min(500px, 86vh);
+      }
+    }
+  </style>
+</head>
+
+<body>
+  <main class="page">
+    <header class="topbar">
+      <div class="wordmark">Restaurant</div>
+    </header>
+
+    <section class="hero">
+      <div class="brand-mark">✧</div>
+      <div class="brand-name">Norah's Kitchen</div>
+      <div class="divider"></div>
+      <p class="tagline">Dining, beautifully simple.</p>
+      <!-- The one Reserve a Table button — centred in the middle, above the details -->
+      <button class="chat-launcher" type="button" data-open-chat aria-label="Open reservation chat">
+        <span>✦</span> Reserve a Table
+      </button>
+    </section>
+
+    <div class="details">
+      <span>123 Main Ave</span> &nbsp;·&nbsp;
+      <span>Daily, 11:00 AM – 10:00 PM</span> &nbsp;·&nbsp;
+      <span>123-456-7890</span>
+    </div>
+  </main>
+
+  <!-- Chat pop-up in the middle of the page -->
+  <div class="chat-overlay" id="chatOverlay" role="dialog" aria-modal="true" aria-label="Reservation Assistant">
+    <section class="chat-panel">
+      <button class="chat-close" type="button" id="chatClose" aria-label="Close chat">×</button>
+      <div class="panel-heading">Reservation Assistant</div>
+
+      <div class="messages" id="messages">
+        <div class="message assistant">
+          <div class="avatar">N</div>
+          <div class="bubble">
+            <strong>Welcome to Norah's Kitchen!</strong><br>
+            I'd be happy to assist with your reservation.<br>
+            May I have your name, preferred date, time, number of guests, and phone number?
+          </div>
+        </div>
+      </div>
+
+      <div class="composer-area">
+        <form class="composer" id="chatForm">
+          <input
+            id="messageInput"
+            type="text"
+            placeholder="Type your message..."
+            autocomplete="off"
+            aria-label="Type your message"
+            required
+          >
+
+          <button
+            class="send-button"
+            id="sendButton"
+            type="submit"
+            aria-label="Send message"
+          >
+            &#10148;
+          </button>
+        </form>
+      </div>
+    </section>
+  </div>
+
+  <script>
+    const form = document.getElementById("chatForm");
+    const input = document.getElementById("messageInput");
+    const messages = document.getElementById("messages");
+    const sendButton = document.getElementById("sendButton");
+    const chatOverlay = document.getElementById("chatOverlay");
+    const chatClose = document.getElementById("chatClose");
+
+    // Open / close the pop-up chat
+    function openChat() {
+      chatOverlay.classList.add("open");
+      document.body.style.overflow = "hidden";
+      input.focus();
+    }
+
+    function closeChat() {
+      chatOverlay.classList.remove("open");
+      document.body.style.overflow = "";
+    }
+
+    document.querySelectorAll("[data-open-chat]").forEach(function (button) {
+      button.addEventListener("click", openChat);
+    });
+
+    chatClose.addEventListener("click", closeChat);
+
+    // Click the dark area outside the chat panel to close it
+    chatOverlay.addEventListener("click", function (event) {
+      if (event.target === chatOverlay) closeChat();
+    });
+
+    // Press Escape to close it
+    document.addEventListener("keydown", function (event) {
+      if (event.key === "Escape") closeChat();
+    });
+
+    // Existing n8n Chat Trigger URL
+    const N8N_CHAT_URL = "https://njmn.app.n8n.cloud/webhook/ac48a296-0570-4358-a12a-c2789499dcaf/chat";
+
+    // Keep the same session ID throughout the conversation
+    let sessionId = sessionStorage.getItem("norahsKitchenSession");
+
+    if (!sessionId) {
+      sessionId = crypto.randomUUID();
+      sessionStorage.setItem("norahsKitchenSession", sessionId);
+    }
+
+    // Render the bot's **bold** text as real bold, instead of showing the stars.
+    // User messages stay as plain text.
+    function renderBotText(text) {
+      const escaped = text
+        .replace(/&/g, "&amp;")
+        .replace(/</g, "&lt;")
+        .replace(/>/g, "&gt;");
+      return escaped
+        .replace(/\*\*([^*]+)\*\*/g, "<strong>$1</strong>")
+        .replace(/\n/g, "<br>");
+    }
+
+    // Display messages in the chat
+    function addMessage(text, sender) {
+      const message = document.createElement("div");
+      message.className = `message ${sender}`;
+
+      if (sender === "assistant" || sender === "bot") {
+        const avatar = document.createElement("div");
+        avatar.className = "avatar";
+        avatar.textContent = "N";
+        message.appendChild(avatar);
+      }
+
+      const content = document.createElement("div");
+
+      const bubble = document.createElement("div");
+      bubble.className = "bubble";
+      if (sender === "assistant" || sender === "bot") {
+        bubble.innerHTML = renderBotText(text);
+      } else {
+        bubble.textContent = text;
+      }
+
+      const timestamp = document.createElement("div");
+      timestamp.className = "message-time";
+      timestamp.textContent = new Date().toLocaleTimeString([], {
+        hour: "numeric",
+        minute: "2-digit"
+      });
+
+      content.appendChild(bubble);
+      content.appendChild(timestamp);
+      message.appendChild(content);
+
+      messages.appendChild(message);
+      messages.scrollTop = messages.scrollHeight;
+    }
+
+    // Send customer messages to n8n
+    form.addEventListener("submit", async function(event) {
+      event.preventDefault();
+
+      const text = input.value.trim();
+
+      if (!text || input.disabled) return;
+
+      // Display customer's message
+      addMessage(text, "user");
+
+      input.value = "";
+      input.disabled = true;
+      sendButton.disabled = true;
+
+      // Show typing indicator
+      const typing = document.createElement("div");
+      typing.className = "message assistant typing";
+
+      const avatar = document.createElement("div");
+      avatar.className = "avatar";
+      avatar.textContent = "N";
+
+      const typingBubble = document.createElement("div");
+      typingBubble.className = "bubble";
+      typingBubble.textContent = "•••";
+
+      typing.appendChild(avatar);
+      typing.appendChild(typingBubble);
+
+      messages.appendChild(typing);
+      messages.scrollTop = messages.scrollHeight;
+
+      try {
+        const response = await fetch(N8N_CHAT_URL, {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json"
+          },
+          body: JSON.stringify({
+            chatInput: text,
+            sessionId: sessionId
+          })
+        });
+
+        if (!response.ok) {
+          throw new Error(`n8n returned HTTP ${response.status}`);
+        }
+
+        const data = await response.json();
+
+        typing.remove();
+
+        // Read the AI Agent's response
+        const reply = Array.isArray(data)
+          ? data[0]?.output
+          : data.output;
+
+        addMessage(
+          reply || "I'm sorry, I couldn't process that. Please try again.",
+          "assistant"
+        );
+
+      } catch (error) {
+        typing.remove();
+
+        addMessage(
+          "Our reservation assistant is temporarily unavailable. Please call the restaurant directly to make your reservation. We apologize for the inconvenience and appreciate your understanding.",
+          "assistant"
+        );
+
+        console.error("Chat error:", error);
+
+      } finally {
+        input.disabled = false;
+        sendButton.disabled = false;
+        input.focus();
+      }
+    });
+  </script>
+</body>
+</html>
